@@ -58,6 +58,7 @@ input {
     margin-bottom: 3%;
     border-radius: 10px;
     border-color: rgb(47, 180, 47);
+    text-decoration: none;
 }
 
 .footer {
@@ -69,4 +70,44 @@ input {
     text-align: center;
     padding-top: 2%;
     padding-bottom: 2%;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    box-shadow: 0px -1px 2px black;
+}
+
+.account-info {
+    width: 48%;
+    height: 40vh;
+    margin-left: 5px;
+    float: left;
+    text-align: center;
+    border: 1px solid black;
+    border-radius: 5px;
+    box-shadow: 1px 1px 1px 1px black;
+}
+
+.account-options {
+    width: 48%;
+    height: 40vh;
+    margin-right: 5px;
+    float: right;
+    text-align: center;
+    border: 1px solid black;
+    border-radius: 5px;
+    box-shadow: 1px 1px 1px 1px black;
+}
+
+.account-button {
+    display: block;
+    width: 60%;
+    margin: 0 auto;
+    margin-bottom: 10px;
+    padding: 5px 15px 5px 15px;
+    border: 1px solid black;
+    box-shadow: 1px 1px 1px 1px black;
+}
+
+.account-buttons {
+    margin: 0 auto;
 }
