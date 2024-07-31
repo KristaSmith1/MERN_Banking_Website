@@ -22,8 +22,8 @@ module.exports = {
                 // Send a ping to confirm a successful connection
                 await client.db("admin").command({ ping: 1 });
                 console.log("Pinged your deployment. You successfully connected to MongoDB!");
-                _db = client.db("bankAccounts");
-                console.log("Successfully connected to bankAccounts collection");
+                _db = client.db("bank_accounts");
+                console.log("Successfully connected to bank_accounts collection");
             } finally {
             }
         }
@@ -31,7 +31,7 @@ module.exports = {
     },
 
     getDb: function () {
-        console.log("return db"); // TEST
+        //console.log("return db"); // TEST
         return _db;
     }
 };

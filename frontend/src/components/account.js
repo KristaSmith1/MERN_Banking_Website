@@ -37,7 +37,7 @@ export default function Account() {
                 <div>
                     <a href="/" className="submit-button account-button">Homepage</a>
                     <a href="/account" className="submit-button account-button">Transfer Money</a>
-                    <a href="/" className="submit-button account-button">View Accounts</a>
+                    <a href="/account-list" className="submit-button account-button">Account List</a>
                 </div>
             )
         }
@@ -60,30 +60,30 @@ export default function Account() {
     
     return (
         <div>
-            <h3 className="">
-                {form.firstname} {form.lastname}'s Account
-                <br />
-                {form.role}
-            </h3>
-            <div className="account-info">
-                <h3>Account Info</h3>
-                <h4 className="m-3">Email: {form.email}</h4>
-                <h4 className="m-3">Phone: {form.phone}</h4>
-                <h4 className="m-3">Savings Balance: ${form.savings}</h4>
-                <h4 className="m-3">Checking Balance: ${form.checking}</h4>
-                <h5 className="m-5"></h5>
-                <a href="/account" className="submit-button account-button">Edit</a>
-            </div>
-            {/* <div className="account-buttons">
-                <a href="/" className="submit-button account-button">Homepage</a>
-                <a href="/account" className="submit-button account-button">Transfer Money</a>
-            </div> */}
+            <div className="content account">
 
-            <div className="account-options">
-                <h3>{form.role} Options</h3>
-                <div className="account-buttons">
-                    {showOptions(form.role)}
+                <h3 className="">
+                    {form.firstname} {form.lastname}'s Account
+                    <br />
+                    {form.role}
+                </h3>
+                <div className="account-info">
+                    <h3>Account Info</h3>
+                    <h4 className="m-3">Email: {form.email}</h4>
+                    <h4 className="m-3">Phone: {form.phone}</h4>
+                    <h4 className="m-3">Savings Balance: ${form.savings}</h4>
+                    <h4 className="m-3">Checking Balance: ${form.checking}</h4>
+                    <h5 className="m-5"></h5>
+                    <a href="/edit" className="submit-button account-button">Edit</a>
                 </div>
+
+                <div className="account-options">
+                    <h3>{form.role} Options</h3>
+                    <div className="account-buttons">
+                        {showOptions(form.role)}
+                    </div>
+                </div>
+
             </div>
 
             {/* end of card */}

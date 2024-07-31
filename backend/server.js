@@ -1,13 +1,12 @@
 // This file will create the server
-
 const express = require("express");
 const app = express();
 const cors = require("cors");
 
-const session = require("express-session");
-const MongoStore = require("connect-mongo");
+const session = require("express-session")
+const MongoStore = require("connect-mongo")
 
-require("dotenv").config({ path: "./config.env" });
+require("dotenv").config({ path: "./config.env"});
 
 app.use(cors({
     origin: "http://localhost:3000",
@@ -30,16 +29,16 @@ const dbo = require("./db/connection");
 
 app.use(express.json());
 
-//app.use(require("./routes/account"));
+app.use(require("./routes/routes"));
 
 const port = process.env.PORT || 5000;
 
-app.get("/", (req, res) => {
+app.get("/", (req,res) => {
     res.send("Hello World");
 });
 
 app.listen(port, () => {
-    dbo.connectToServer(function (err) {
+    dbo.connectToServer(function(err) {
         if (err) {
             console.err(err);
         }

@@ -7,6 +7,8 @@ import { Route, Routes } from "react-router-dom";
 //import Navbar from "./components/navbar";
 import Login from "./components/homepage";
 import Account from "./components/account";
+import Accounts from "./components/accountList";
+import Edit from "./components/accountEdit";
  
 const App = () => {
  return (
@@ -15,6 +17,8 @@ const App = () => {
      <Routes>
         <Route exact path="/" element={<Login />} />
         <Route path="/account" element={<Account />} />
+        <Route path="/account-list" element={<Accounts />} />
+        <Route path="/edit" element={<Edit />} />
      </Routes>
    </div>
  );
