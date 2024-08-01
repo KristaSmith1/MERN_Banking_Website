@@ -7,8 +7,10 @@ import { Route, Routes } from "react-router-dom";
 //import Navbar from "./components/navbar";
 import Login from "./components/homepage";
 import Account from "./components/account";
-import Accounts from "./components/accountList";
+import AccountList from "./components/accountList";
+import CustomerList from "./components/customerList";
 import Edit from "./components/accountEdit";
+import Add from "./components/accountAdd";
  
 const App = () => {
  return (
@@ -17,8 +19,10 @@ const App = () => {
      <Routes>
         <Route exact path="/" element={<Login />} />
         <Route path="/account" element={<Account />} />
-        <Route path="/account-list" element={<Accounts />} />
+        <Route path="/account-list" element={<AccountList />} />
+        <Route path="/customer-list" element={<CustomerList />} />
         <Route path="/edit" element={<Edit />} />
+        <Route path="/add" element={<Add />} />
      </Routes>
    </div>
  );

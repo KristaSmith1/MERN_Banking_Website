@@ -23,6 +23,18 @@ accountRoutes.route("/accounts").get(async (req, res) => {
     }
  
 });
+
+// // This section will help you get a list of all the records.
+accountRoutes.route("/customers").get(async (req, res) => {
+    try{
+        let db_connect = dbo.getDb("bank_accounts");
+        const result = await db_connect.collection("users").find({ "role": { $eq: "Customer" }}).toArray();
+        res.json(result);
+    } catch (err) {
+        throw err;
+    }
+ 
+});
  
 // This section will help you get a single record by id
 accountRoutes.route("/accounts/:id").get(async (req, res) => {
