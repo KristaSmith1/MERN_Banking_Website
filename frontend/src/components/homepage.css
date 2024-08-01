@@ -60,6 +60,13 @@ input {
     font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
 }
 
+.invalidMessage {
+    text-align: center;
+    font-size: large;
+    font-weight: bold;
+    color: red;
+    padding-top: 2%;
+}
 .submit-button {
     background-color: rgb(47, 180, 47);
     color: white;
