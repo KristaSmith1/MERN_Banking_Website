@@ -31,7 +31,7 @@ app.use(express.json());
 
 app.use(require("./routes/routes"));
 
-const port = process.env.PORT || 5000;
+const port = process.env.PORT || 4000;
 
 app.get("/", (req,res) => {
     res.send("Hello World");

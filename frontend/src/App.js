@@ -11,7 +11,9 @@ import AccountList from "./components/accountList";
 import CustomerList from "./components/customerList";
 import Edit from "./components/accountEdit";
 import Add from "./components/accountAdd";
- 
+import CustomerDashboard from "./components/customer";
+import Transactions from "./components/transactions";
+
 const App = () => {
  return (
    <div>
@@ -23,6 +25,8 @@ const App = () => {
         <Route path="/customer-list" element={<CustomerList />} />
         <Route path="/edit" element={<Edit />} />
         <Route path="/add" element={<Add />} />
+        <Route path="/customer" element={<CustomerDashboard />} />
+        <Route path="/transactions" element={<Transactions/>} />
      </Routes>
    </div>
  );

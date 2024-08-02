@@ -166,3 +166,22 @@ button {
 	font: inherit;
 	outline: inherit;
 }
+
+.transaction-form {
+    display: flex;
+    align-items: center;
+    gap: 1%; /* Space between elements */
+  }
+  
+  .transaction-form select,
+  .transaction-form input,
+  .transaction-form button {
+    margin-right: 1%; /* Space between elements */
+  }
+  
+  .transaction-amount {
+    width: 75%; /* Adjust width as needed */
+  }
+  
+ 
+  
