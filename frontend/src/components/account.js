@@ -36,7 +36,7 @@ export default function Account() {
             return (
                 <div>
                     <a href="/" className="submit-button account-button">Homepage</a>
-                    <a href="/account" className="submit-button account-button">Transfer Money</a>
+                    <a href="/transactions" className="submit-button account-button">Transfer Money</a>
                     <a href="/account-list" className="submit-button account-button">Account List</a>
                 </div>
             )
@@ -45,7 +45,7 @@ export default function Account() {
             return (
                 <div>
                     <a href="/" className="submit-button account-button">Homepage</a>
-                    <a href="/account" className="submit-button account-button">Transfer Money</a>
+                    <a href="/transactions" className="submit-button account-button">Transfer Money</a>
                 </div>
             )
         }
@@ -53,6 +53,7 @@ export default function Account() {
             return(
                 <div>
                     <a href="/" className="submit-button account-button">Homepage</a>
+                    <a href="/transactions" className="submit-button account-button">Transfer Money</a>
                 </div>
             )
         }
