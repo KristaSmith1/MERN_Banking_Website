@@ -96,7 +96,6 @@ export default function Login() {
 
                         <label htmlFor="email" className="form-label">Email</label>
                         <input type="text" id="email"
-                            // class="form-control border-success"
                             placeholder="Please enter your email"
                             value={form.email}
                             onChange={(e) => updateForm({ email: e.target.value })}
