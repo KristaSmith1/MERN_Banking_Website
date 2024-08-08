@@ -54,7 +54,7 @@ export default function Edit() {
      email: form.email,
      phone: form.phone,
      password: form.password,
-     role: "",
+     role: form.role,
    };
    // This will send a post request to update the data in the database.
    await fetch(`http://localhost:4000/update/${params.id}`, {
@@ -128,10 +128,9 @@ export default function Edit() {
          <input
            type="text"
            className="form-control border bg-light"
-           id="roles"
+           id="role"
            value={form.role}
            onChange={(e) => updateForm({ role: e.target.value })}
-           readOnly
          />
        </div>
        <br />

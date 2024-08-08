@@ -4,7 +4,6 @@
 import React, { useState } from "react";
 //import { NavLink } from "react-router-dom";
 import { useParams, useNavigate } from "react-router";
-import { ReactSession } from "react-client-session";
 
 import "./homepage.css";
 
@@ -55,23 +54,15 @@ export default function Login() {
         console.log("password: " + user.password);
         console.log("message: " + user.message);
 
+        // Set session data
+        localStorage.setItem("username", user._id);
+
+        // navigate to user account
+        //console.log("About to navigate to account");
+        navigate("/account/" + user._id);
+
         // reset form to blank, set message to username
         setForm({ email: "", password: "", message: user.message });
-
-
-
-        if (user.message == null) {
-            ReactSession.setStoreType("sessionStorage");
-            ReactSession.set("username", user._id);
-
-            // check to see if username stored correctly
-            console.log("From login: " + ReactSession.get("username"));
-
-
-            // navigate to user account
-            //console.log("About to navigate to account");
-            navigate("/account/" + user._id);
-        }
 
         setInvalidMessage("Invalid email or password. Please correct and try again.");
 
@@ -81,9 +72,9 @@ export default function Login() {
         <div>
             <h3>Welcome to Gecko Banking!</h3>
             <div className="content">
-                <img src="https://images.unsplash.com/photo-1634207138281-3321b35e9662?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" class="card-img-top" alt="A gecko"
+                <img className="" src="https://images.unsplash.com/photo-1634207138281-3321b35e9662?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" class="card-img-top" alt="A gecko"
                 />
-                <div className="card-body">
+                <div className="">
                     <form onSubmit={onSubmit}>
 
                         <label htmlFor="email" className="form-label">Email</label>

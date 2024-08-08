@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-// Session data
-import { ReactSession } from 'react-client-session';
 
 import "./homepage.css";
  
@@ -30,30 +28,30 @@ const Account = (props) => (
  
 export default function AccountList() {
  const [account, setAccounts] = useState([]);
+
+ // check to see if username stored correctly
+ console.log("From accountList: " + localStorage.getItem("username"));
  
  // This method fetches the records from the database.
- useEffect(() => {
-   async function getAccounts() {
-     const response = await fetch(`http://localhost:4000/accounts/`);
- 
-     if (!response.ok) {
-       const message = `An error occurred: ${response.statusText}`;
-       window.alert(message);
-       return;
-     }
- 
-     const accounts = await response.json();
-     setAccounts(accounts);
-   }
- 
-   getAccounts();
+  useEffect(() => {
+    async function getAccounts() {
+      const response = await fetch(`http://localhost:4000/accounts/`);
 
-   console.log("From accountList: " + ReactSession.get("username"))
-   //ReactSession.remove("username")
-   //console.log(ReactSession.get("username"))
+      if (!response.ok) {
+        const message = `An error occurred: ${response.statusText}`;
+        window.alert(message);
+        return;
+      }
+
+      const accounts = await response.json();
+      setAccounts(accounts);
+    }
+
+    getAccounts();
+
  
-   return;
- }, [account.length]);
+    return;
+  }, [account.length]);
  
  // This method will delete a record
  async function deleteAccount(id) {
@@ -81,8 +79,7 @@ export default function AccountList() {
  // This following section will display the table with the records of individuals.
  return (
     <div>
-      <h3 className="m-3">Account List</h3>
-      <a href="/account" className="submit-button account-button">My Account</a>
+      <h3 className="">Account List</h3>
       <table className="account-table" style={{ marginTop: 20 }}>
         <thead>
           <tr className="account-tr">

@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-// Session data
-import { ReactSession } from 'react-client-session';
 
 import "./homepage.css";
  
@@ -47,10 +45,6 @@ export default function CustomerList() {
    }
  
    getAccounts();
-
-   console.log("From accountList: " + ReactSession.get("username"))
-   //ReactSession.remove("username")
-   //console.log(ReactSession.get("username"))
  
    return;
  }, [account.length]);
@@ -72,7 +66,6 @@ export default function CustomerList() {
  return (
     <div>
       <h3 className="m-3">Customer List</h3>
-      <a href="/account" className="submit-button account-button">My Account</a>
       <table className="account-table" style={{ marginTop: 20 }}>
         <thead>
           <tr className="account-tr">

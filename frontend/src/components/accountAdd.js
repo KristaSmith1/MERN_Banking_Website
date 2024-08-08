@@ -80,8 +80,6 @@ export default function Add() {
  return (
    <div>
      <h3>Add Account</h3>
-    <Link className="submit-button account-button" to={`/account`}>My Account</Link>
-    <Link className="submit-button account-button" to={`/account-list`}>Account List</Link>
      <form onSubmit={onSubmit}>
        <div className="form-group m-3">
          <label htmlFor="firstname">First Name: </label>

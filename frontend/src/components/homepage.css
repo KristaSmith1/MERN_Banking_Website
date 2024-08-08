@@ -183,6 +183,23 @@ button {
   .transaction-amount {
     width: 75%; /* Adjust width as needed */
   }
+
+  .nav-div {
+    background-color: rgb(47, 180, 47);
+    position: relative;
+    width: 100%;
+    display: flex;
+  }
+
+  .nav-button-div {
+    width: 220px;
+    display: flex;
+  }
   
+  .nav-button {
+    width: 100px;
+    position: relative;
+    margin-top: 10px;
+  }
  
   

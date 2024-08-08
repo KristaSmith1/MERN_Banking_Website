@@ -1,14 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router";
 // We import NavLink to utilize the react router.
-import { NavLink } from "react-router-dom";
-// Session data
-import { ReactSession } from 'react-client-session';
+import { Link } from "react-router-dom";
 
 import "./homepage.css";
 
 export default function Account() {
-
 
     const [form, setForm] = useState({
         firstname: "",
@@ -31,24 +28,24 @@ export default function Account() {
 
     useEffect(() => {
         async function fetchData() {
-          const id = params.id.toString();
-          const response = await fetch(`http://localhost:4000/accounts/${params.id}`);
-      
-          if (!response.ok) {
-            const message = `An error has occurred: ${response.statusText}`;
-            window.alert(message);
-            return;
-          }
-      
-          const account = await response.json();
-          if (!account) {
-            window.alert(`Account with id ${id} not found`);
-            navigate("/");
-            return;
-          }
-      
-          setForm(account);
-          console.log(account);
+            const id = params.id.toString();
+            const response = await fetch(`http://localhost:4000/accounts/${params.id}`);
+        
+            if (!response.ok) {
+                const message = `An error has occurred: ${response.statusText}`;
+                window.alert(message);
+                return;
+            }
+        
+            const account = await response.json();
+            if (!account) {
+                window.alert(`Account with id ${id} not found`);
+                navigate("/");
+                return;
+            }
+        
+            setForm(account);
+            console.log(account);
         }
       
         fetchData();
@@ -103,7 +100,7 @@ export default function Account() {
                     <h4 className="m-3">Savings Balance: ${form.savings}</h4>
                     <h4 className="m-3">Checking Balance: ${form.checking}</h4>
                     <h5 className="m-5"></h5>
-                    <a href="/edit" className="submit-button account-button">Edit</a>
+                    <Link className="submit-button account-button" to={`/edit/${params.id}`}>Edit</Link>
                 </div>
 
                 <div className="account-options">

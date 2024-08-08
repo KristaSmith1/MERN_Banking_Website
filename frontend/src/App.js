@@ -4,7 +4,7 @@ import React from "react";
 import { Route, Routes } from "react-router-dom";
  
 // We import all the components we need in our app
-//import Navbar from "./components/navbar";
+import Navbar from "./components/navbar";
 import Login from "./components/homepage";
 import Account from "./components/account";
 import AccountList from "./components/accountList";
@@ -17,8 +17,8 @@ import Transactions from "./components/transactions";
 const App = () => {
  return (
    <div>
-     {/* <Navbar /> */}
-     <Routes>
+      <Navbar />
+      <Routes>
         <Route exact path="/" element={<Login />} />
         <Route path="/account/:id" element={<Account />} />
         <Route path="/account-list" element={<AccountList />} />
@@ -27,7 +27,7 @@ const App = () => {
         <Route path="/add" element={<Add />} />
         <Route path="/customer" element={<CustomerDashboard />} />
         <Route path="/transactions" element={<Transactions/>} />
-     </Routes>
+      </Routes>
    </div>
  );
 };
