@@ -124,7 +124,7 @@ accountRoutes.route("/update/:id").put(async (req, res) => {
             email: req.body.email,
             phone: req.body.phone,
             password: req.body.password,
-            roles: "",
+            role: req.body.role,
         },
         };
         const result = await db_connect.collection("users").updateOne(myquery, newvalues); 

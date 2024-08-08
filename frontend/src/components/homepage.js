@@ -33,7 +33,7 @@ export default function Login() {
 
         const existingPerson = { ...form };
 
-        const response = await fetch("http://localhost:5000/accounts/login",
+        const response = await fetch("http://localhost:4000/accounts/login",
             {
                 method: "POST",
                 headers: {
@@ -70,7 +70,7 @@ export default function Login() {
 
             // navigate to user account
             //console.log("About to navigate to account");
-            navigate("/account");
+            navigate("/account/" + user._id);
         }
 
         setInvalidMessage("Invalid email or password. Please correct and try again.");

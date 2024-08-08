@@ -15,8 +15,16 @@ const Account = (props) => (
   <td>$ {props.account.checking}</td>
   <td>{props.account.role}</td>
   <td>
-    <Link className="submit-button account-button" to={`/account`}>View</Link>
-  </td>
+      <Link className="submit-button account-button" to={`/account/${props.account._id}`}>View</Link>
+      <Link className="submit-button account-button" to={`/edit/${props.account._id}`}>Edit</Link>
+      <button
+        onClick={() => {
+          props.deleteAccount(props.account._id);
+        }}
+      >
+        <p className="submit-button account-button">Delete</p>
+      </button>
+   </td>
  </tr>
 );
  
@@ -26,7 +34,7 @@ export default function CustomerList() {
  // This method fetches the records from the database.
  useEffect(() => {
    async function getAccounts() {
-     const response = await fetch(`http://localhost:5000/customers/`);
+     const response = await fetch(`http://localhost:4000/customers/`);
  
      if (!response.ok) {
        const message = `An error occurred: ${response.statusText}`;

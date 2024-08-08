@@ -10,8 +10,6 @@ export default function Add() {
     phone: "",
     password: "",
     role: "",
-    //role: "Employee",
-    //role: "Customer",
     checkingWithdraw: 0.0,
     checkingDeposit: 0.0,
     checkingTransfer: 0.0,
@@ -25,7 +23,7 @@ export default function Add() {
  useEffect(() => {
    async function fetchData() {
      //const id = params.id.toString();
-     const response = await fetch(`http://localhost:5000/accounts`);
+     const response = await fetch(`http://localhost:4000/accounts`);
  
      if (!response.ok) {
        const message = `An error has occurred: ${response.statusText}`;

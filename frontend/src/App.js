@@ -20,10 +20,10 @@ const App = () => {
      {/* <Navbar /> */}
      <Routes>
         <Route exact path="/" element={<Login />} />
-        <Route path="/account" element={<Account />} />
+        <Route path="/account/:id" element={<Account />} />
         <Route path="/account-list" element={<AccountList />} />
         <Route path="/customer-list" element={<CustomerList />} />
-        <Route path="/edit" element={<Edit />} />
+        <Route path="/edit/:id" element={<Edit />} />
         <Route path="/add" element={<Add />} />
         <Route path="/customer" element={<CustomerDashboard />} />
         <Route path="/transactions" element={<Transactions/>} />
