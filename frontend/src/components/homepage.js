@@ -30,6 +30,17 @@ export default function Login() {
         // when form is submitted, send info to db
         e.preventDefault();
 
+        // hash the password entered in the form
+        console.log("TESTING: where am i");
+        const sha256 = require('js-sha256');
+        const toBeHashed = form.password;
+        console.log("To be hashed: " + toBeHashed);
+        const hash = sha256(toBeHashed);
+        console.log("Here's my hash: " + hash);
+
+        // change the form password to what the hashed version is
+        form.password = hash;
+
         const existingPerson = { ...form };
 
         const response = await fetch("http://localhost:4000/accounts/login",
@@ -52,18 +63,24 @@ export default function Login() {
         console.log("User: " + user);
         console.log("email: " + user.email);
         console.log("password: " + user.password);
+        console.log("hashed: " + hash);
         console.log("message: " + user.message);
-
-        // Set session data
-        localStorage.setItem("username", user._id);
-
-        // navigate to user account
-        //console.log("About to navigate to account");
-        navigate("/account/" + user._id);
 
         // reset form to blank, set message to username
         setForm({ email: "", password: "", message: user.message });
 
+        if (user.message == null) {
+            // Set session data
+            localStorage.setItem("username", user._id);
+
+
+            // navigate to user account
+            console.log("successful login");
+            //console.log("About to navigate to account");
+            navigate("/account/" + user._id);
+
+
+        }
         setInvalidMessage("Invalid email or password. Please correct and try again.");
 
     }

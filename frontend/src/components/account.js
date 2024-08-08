@@ -30,28 +30,28 @@ export default function Account() {
         async function fetchData() {
             const id = params.id.toString();
             const response = await fetch(`http://localhost:4000/accounts/${params.id}`);
-        
+
             if (!response.ok) {
                 const message = `An error has occurred: ${response.statusText}`;
                 window.alert(message);
                 return;
             }
-        
+
             const account = await response.json();
             if (!account) {
                 window.alert(`Account with id ${id} not found`);
                 navigate("/");
                 return;
             }
-        
+
             setForm(account);
             console.log(account);
         }
-      
+
         fetchData();
-      
+
         return;
-      }, [params.id, navigate]);
+    }, [params.id, navigate]);
 
     function showOptions(role) {
         if (role == "Administrator") {
@@ -75,7 +75,7 @@ export default function Account() {
             )
         }
         else {
-            return(
+            return (
                 <div>
                     <a href="/" className="submit-button account-button">Homepage</a>
                     <a href="/transactions" className="submit-button account-button">Transfer Money</a>
@@ -83,7 +83,7 @@ export default function Account() {
             )
         }
     }
-    
+
     return (
         <div>
             <div className="content account">
