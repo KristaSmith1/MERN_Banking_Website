@@ -80,7 +80,7 @@ export default function Login() {
     return (
         <div>
             <h3>Welcome to Gecko Banking!</h3>
-            <div className="card">
+            <div className="content">
                 <img src="https://images.unsplash.com/photo-1634207138281-3321b35e9662?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" class="card-img-top" alt="A gecko"
                 />
                 <div className="card-body">
