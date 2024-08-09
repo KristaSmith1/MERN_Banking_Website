@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate, Link } from "react-router-dom";
+import axios from "axios";
 import "./homepage.css";
 
-// Dummy function to simulate fetching user data
 const fetchUserData = async () => {
   // Replace with actual fetch logic
   return {

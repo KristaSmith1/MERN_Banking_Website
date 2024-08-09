@@ -12,7 +12,155 @@ const dbo = require("../db/connection");
 // This helps convert the id from string to ObjectId for the _id.
 const ObjectId = require("mongodb").ObjectId;
  
- 
+function generateCustomerId() {
+    return 'C' + Math.floor(Math.random() * 1000000).toString().padStart(6, '0');
+}
+
+accountRoutes.route("/accounts/add").post(async (req, res) => {
+    try {
+        let db_connect = dbo.getDb();
+        let hashedPassword = crypto.createHash('sha256').update(req.body.password).digest('hex');
+        let customerId = generateCustomerId();
+        let myobj = {
+            firstname: req.body.firstname,
+            lastname: req.body.lastname,
+            email: req.body.email,
+            phone: req.body.phone,
+            password: hashedPassword,
+            savings: 0,
+            checking: 0,
+            investment: 0,
+            role: "customer",
+            customerId: customerId,
+        };
+        const checkEmail = await db_connect.collection("users").findOne({ email: myobj.email });
+        if (checkEmail) {
+            res.status(400).json({ message: "Error: Email already used." });
+        } else {
+            const result = await db_connect.collection("users").insertOne(myobj);
+            res.status(201).json({ message: "Success", user: result.ops[0] });
+        }
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+});
+
+// Deposit Route
+accountRoutes.route("/accounts/deposit").post(async (req, res) => {
+    try {
+        let db_connect = dbo.getDb();
+        const { customerId, amount, accountType } = req.body;
+        const user = await db_connect.collection("users").findOne({ customerId });
+
+        if (user) {
+            let newBalance = user[accountType] + parseFloat(amount);
+            await db_connect.collection("users").updateOne({ customerId }, { $set: { [accountType]: newBalance } });
+
+            const transaction = {
+                customerId: customerId,
+                type: "deposit",
+                amount: amount,
+                date: new Date(),
+                description: `Deposited ${amount} to ${accountType}`,
+            };
+            await db_connect.collection("transactions").insertOne(transaction);
+            res.json({ message: "Deposit successful", newBalance });
+        } else {
+            res.status(404).json({ message: "User not found" });
+        }
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+});
+
+// Withdraw Route
+accountRoutes.route("/accounts/withdraw").post(async (req, res) => {
+    try {
+        let db_connect = dbo.getDb();
+        const { customerId, amount, accountType } = req.body;
+        const user = await db_connect.collection("users").findOne({ customerId });
+
+        if (user) {
+            let newBalance = user[accountType] - parseFloat(amount);
+            if (newBalance < 0) {
+                res.status(400).json({ message: "Insufficient funds" });
+                return;
+            }
+            await db_connect.collection("users").updateOne({ customerId }, { $set: { [accountType]: newBalance } });
+
+            const transaction = {
+                customerId: customerId,
+                type: "withdraw",
+                amount: amount,
+                date: new Date(),
+                description: `Withdrew ${amount} from ${accountType}`,
+            };
+            await db_connect.collection("transactions").insertOne(transaction);
+            res.json({ message: "Withdrawal successful", newBalance });
+        } else {
+            res.status(404).json({ message: "User not found" });
+        }
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+});
+
+// Transfer Route
+accountRoutes.route("/accounts/transfer").post(async (req, res) => {
+    try {
+        let db_connect = dbo.getDb();
+        const { customerId, fromAccountType, toAccountType, amount } = req.body;
+        const user = await db_connect.collection("users").findOne({ customerId });
+
+        if (user) {
+            let newFromBalance = user[fromAccountType] - parseFloat(amount);
+            if (newFromBalance < 0) {
+                res.status(400).json({ message: "Insufficient funds" });
+                return;
+            }
+            let newToBalance = user[toAccountType] + parseFloat(amount);
+
+            await db_connect.collection("users").updateOne({ customerId }, { $set: { [fromAccountType]: newFromBalance, [toAccountType]: newToBalance } });
+
+            const transaction = {
+                customerId: customerId,
+                type: "transfer",
+                amount: amount,
+                date: new Date(),
+                description: `Transferred ${amount} from ${fromAccountType} to ${toAccountType}`,
+            };
+            await db_connect.collection("transactions").insertOne(transaction);
+            res.json({ message: "Transfer successful", newFromBalance, newToBalance });
+        } else {
+            res.status(404).json({ message: "User not found" });
+        }
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+});
+
+// Fetch individual account transaction history
+accountRoutes.route("/transactions/:customerId/:accountType").get(async (req, res) => {
+    try {
+        let db_connect = dbo.getDb();
+        const transactions = await db_connect.collection("transactions").find({ customerId: req.params.customerId, description: { $regex: req.params.accountType, $options: "i" } }).toArray();
+        res.json(transactions);
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+});
+
+// Fetch full transaction history
+accountRoutes.route("/transactions/:customerId").get(async (req, res) => {
+    try {
+        let db_connect = dbo.getDb();
+        const transactions = await db_connect.collection("transactions").find({ customerId: req.params.customerId }).toArray();
+        res.json(transactions);
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+});
+
 // // This section will help you get a list of all the records.
 accountRoutes.route("/accounts").get(async (req, res) => {
     try{
