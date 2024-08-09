@@ -1,29 +1,27 @@
+// src/components/TransactionPage.js
 import React, { useState, useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import axios from "axios";
 import "./homepage.css";
 
-const fetchTransactionHistory = async () => {
-  // Replace with actual fetch logic
-  return [
-    { date: '2024-08-01', account: 'savings', type: 'Deposit', amount: 100 },
-    { date: '2024-08-02', account: 'checking', type: 'Withdraw', amount: 50 },
-    { date: '2024-08-03', account: 'investment', type: 'Transfer', amount: 200, fromAccount: 'checking', toAccount: 'investment' },
-  ];
+const fetchTransactionHistory = async (customerID) => {
+  const response = await axios.get(`http://localhost:4000/transactions/${customerID}`);
+  return response.data;
 };
 
 const TransactionPage = () => {
   const [transactions, setTransactions] = useState([]);
   const [selectedAccount, setSelectedAccount] = useState('all');
+  const { id } = useParams();
 
   useEffect(() => {
     async function getTransactions() {
-      const data = await fetchTransactionHistory();
+      const data = await fetchTransactionHistory(id);
       setTransactions(data);
     }
 
     getTransactions();
-  }, []);
+  }, [id]);
 
   const handleAccountChange = (e) => {
     setSelectedAccount(e.target.value);
@@ -71,7 +69,7 @@ const TransactionPage = () => {
           </tbody>
         </table>
         <br/>
-        <Link to="/customer" className="submit-button">Back to Dashboard</Link>
+        <Link to={`/customer/${id}`} className="submit-button">Back to Dashboard</Link>
       </div>
     </div>
   );

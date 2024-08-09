@@ -1,23 +1,20 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate, Link } from "react-router-dom";
+import { useParams, useNavigate, Link } from "react-router-dom";
 import axios from "axios";
 import "./homepage.css";
 
-const fetchUserData = async () => {
+const fetchUserData = async (customerID) => {
   // Replace with actual fetch logic
-  return {
-    savings: 1000,
-    checking: 500,
-    investment: 2000,
-    transactions: [
-      { date: '2024-08-01', type: 'Deposit', account: 'savings', amount: 100 },
-      { date: '2024-08-02', type: 'Withdraw', account: 'checking', amount: 50 },
-    ],
-  };
+  const response = await axios.get(`http://localhost:4000/accounts/${customerID}`);
+  return response.data;
 };
 
-const Dashboard = () => {
+const Customer = () => {
   const [userData, setUserData] = useState({
+    firstname: "",
+    lastname: "",
+    email: "",
+    phone: "",
     savings: 0,
     checking: 0,
     investment: 0,
@@ -28,16 +25,23 @@ const Dashboard = () => {
     account: 'savings',
     amount: '',
   });
+  const { id } = useParams(); // Moved useParams inside the component
   const navigate = useNavigate();
 
   useEffect(() => {
     async function getUserData() {
-      const data = await fetchUserData();
-      setUserData(data);
+      try {
+        const data = await fetchUserData(id);
+        setUserData(data);
+      } catch (error) {
+        console.error("Failed to fetch customer data:", error);
+        window.alert("Failed to fetch customer data");
+        navigate("/customer/:id");
+      }
     }
 
     getUserData();
-  }, []);
+  }, [id, navigate]);
 
   const handleTransactionChange = (e) => {
     setTransaction({ ...transaction, [e.target.name]: e.target.value });
@@ -51,6 +55,7 @@ const Dashboard = () => {
       ...transaction,
     };
 
+    // Update local state (you'd normally make an API call here)
     setUserData({
       ...userData,
       [transaction.account]: transaction.type === 'Deposit'
@@ -64,7 +69,7 @@ const Dashboard = () => {
 
   return (
     <div>
-      <h3 className="m-3">Customer Dashboard</h3>
+      <h3 className="m-3">{userData.firstname} {userData.lastname}'s Account</h3>
       <div>
         <h4>Account Balances</h4>
         <p>Savings: ${userData.savings.toFixed(2)}</p>
@@ -105,12 +110,12 @@ const Dashboard = () => {
       </div>
 
       <div>
-        <br/>
-        <br/>
-        <Link to="/transactions" className="submit-button">View Transaction History</Link>
+        <br />
+        <br />
+        <Link to={`/transactions/${id}`} className="submit-button">View Transaction History</Link>
       </div>
     </div>
   );
 };
 
-export default Dashboard;
+export default Customer;
