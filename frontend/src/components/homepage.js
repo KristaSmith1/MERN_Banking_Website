@@ -4,6 +4,7 @@
 import React, { useState } from "react";
 //import { NavLink } from "react-router-dom";
 import { useParams, useNavigate } from "react-router";
+import { sha256 } from "js-sha256";
 
 import "./homepage.css";
 
